@@ -1,0 +1,21 @@
+.header{
+  font-family: "Fira Code Medium",sans-serif;
+  background-color: #192A56;
+  font-size: larger;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0;
+  opacity: 1.5;
+}
+.fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+a{
+
+  font-weight: bolder;
+  text-decoration: none;
+  color:white ;
+  margin-top: -20px;
+}

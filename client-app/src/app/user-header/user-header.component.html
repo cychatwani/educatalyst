@@ -1,0 +1,61 @@
+<mat-toolbar class="header">
+<!--  <mat-icon color="accent">menu</mat-icon>-->
+  <span class="fill-remaining-space">
+    <img src="../../assets/img/logo.png" style="height: 70px">
+  </span>
+
+  <span style="margin-right: 1%; margin-top: 5px;" class="">
+    <button mat-icon-button [matMenuTriggerFor]="menu2">
+      <mat-icon style="color: white">forum</mat-icon>
+    </button>
+    <mat-menu  #menu2="matMenu" [overlapTrigger]="false" >
+       <button mat-icon-button [matMenuTriggerFor]="menu2">
+      <mat-icon  style="font-size: xx-large; color: lightblue; margin-left: 70px" >mood_bad</mat-icon>
+    </button>
+      <button mat-menu-item style>
+       No messages to Show !!
+      </button>
+    </mat-menu>
+  </span>
+  <span style="margin-left: -10px" class="">
+    <button mat-icon-button [matMenuTriggerFor]="menu1">
+      <mat-icon style="color: white">notifications</mat-icon>
+    </button>
+    <mat-menu   #menu1="matMenu" [overlapTrigger]="false" >
+      <div class="mat-menu-content">
+       <button mat-icon-button [matMenuTriggerFor]="menu1">
+      <mat-icon color="warn" style="font-size: xx-large; color: lightblue; margin-left: 50px" >mood_bad</mat-icon>
+    </button>
+      <button mat-menu-item style>
+       Nothing to Show !!
+      </button>
+      </div>
+    </mat-menu>
+  </span>
+  <span class="">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon style="color: white">person</mat-icon>
+    </button>
+    <mat-menu  #menu="matMenu" [overlapTrigger]="false" style="background-color: #2a3d8d !important;">
+      <button mat-menu-item>
+        <img  src = "../../assets/img/avatar.png" height="50px" style="border-radius: 50%; margin-left: 36%"><br>
+      </button>
+      <button mat-menu-item>
+                Logged in as <label style="color: lightblue">{{this.userService.getCurrentUserInfo().name}}</label>
+      </button>
+      <hr>
+      <button mat-menu-item>
+        <mat-icon>people</mat-icon>
+        <span>View/edit Profile</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>settings</span>
+      </button>
+      <button mat-menu-item (click)="onRequestLogOut()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </span>
+</mat-toolbar>

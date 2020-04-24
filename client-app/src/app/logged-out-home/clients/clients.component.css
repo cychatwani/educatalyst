@@ -1,0 +1,24 @@
+.clients {
+  padding: 0 0 0 0;
+  width: 100%;
+}
+
+.clients .client-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 110px;
+}
+
+.clients .client-logo img {
+  height: 70px;
+}
+
+.clients .client-logo:hover img {
+  transform: scale(1.5);
+}
+
+.clients img {
+  transition: all 0.4s ease-in-out;
+}

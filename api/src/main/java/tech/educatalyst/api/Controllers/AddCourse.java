@@ -4,6 +4,7 @@ package tech.educatalyst.api.Controllers;
 import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +29,8 @@ public class AddCourse {
     @Autowired
     private UniqueCourseKeyRepository uniqueCourseKeyRepository;
     private final  String UnderScore = "_";
+
+   @CrossOrigin
     @PostMapping("faculty/addnewcourse")
     public ApiResponse<NewCourse> newcourse(@RequestBody CourseDTO courseDTO,Principal principal) {
         String email =  principal.getName(); // we are using email to login as username

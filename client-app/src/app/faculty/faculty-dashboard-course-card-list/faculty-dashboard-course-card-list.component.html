@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4" *ngFor="let course of courses;let i = index">
+      <mat-card class="course-card"
+                [ngClass]="{'bgcolor1':(i+1) % 6 == 1, 'bgcolor2':(i+1) % 6 == 2, 'bgcolor3':(i+1) % 6 == 3, 'bgcolor4':(i+1) % 6 == 4,'bgcolor5':(i+1) % 6 == 5,'bgcolor6':(i+1) % 6 == 0}">
+        <mat-card-header>
+          <mat-card-title>{{course.course_name}}</mat-card-title>
+          <mat-card-subtitle style="color: white">{{'Instructor: '+course.instructor.name}}</mat-card-subtitle>
+          <mat-card-subtitle style="color: white">{{'Course Key: '+course.courseKey}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="{{course.course_cover_image_url}}" alt="Cover Image of {{course.name}}" style="height: 200px;">
+        <mat-card-content  style="display:flex; flex-direction: column;">
+          <p align="justify">
+            {{course.course_description}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button style="position: relative; margin-bottom: 0">Go to the course page <mat-icon>arrow_forward</mat-icon></button>
+        </mat-card-actions>
+      </mat-card>
+      <br>
+    </div>
+  </div>
+</div>
+
+

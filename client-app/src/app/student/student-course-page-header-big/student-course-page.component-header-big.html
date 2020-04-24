@@ -1,0 +1,25 @@
+<img src="{{this.course.course_cover_image_url}}" style="width: 100%; height: 38%; position: absolute;top: 0;
+    left: 0;">
+<div style=" background-color: rgba(0, 0, 20, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 38%;">
+  <button mat-button (click)="this.requestGoback()" style="position: absolute; color: white; z-index: 1; top: 0; left: 0; "><mat-icon>keyboard_backspace</mat-icon> Student Dashboard</button>
+  <img src="../../../assets/img/logo.png" style="position: absolute; margin-left: 39.7%; top: 0; height: 73px;">
+  <H1 style="margin-top: 8%; text-align: center; font-size: xx-large; color: white">{{this.course.course_name}}</H1>
+</div>
+<mat-toolbar color="primary" style="margin-top: 18.3%"  [ngClass]="{'bgcolor1':(this.colorNum + 1) % 6 == 1, 'bgcolor2':(this.colorNum+1) % 6 == 2, 'bgcolor3':(this.colorNum+1) % 6 == 3, 'bgcolor4':(this.colorNum+1) % 6 == 4,'bgcolor5':(this.colorNum+1) % 6 == 5,'bgcolor6':(this.colorNum+1) % 6 == 0}">
+  <mat-toolbar-row style="justify-content: center">
+    <a [routerLink]="['/student/course/Announcements',this.key,this.colorNum]" style="color: white; text-decoration: none" >Announcements</a>
+    <a  style="margin-left: 20px; color: white; text-decoration: none;">Assignments</a>
+    <a  style="margin-left: 20px; color: white; text-decoration: none">Ask the Instructor</a>
+    <a  style="margin-left: 20px; color: white; text-decoration: none">Exams & Quizzes</a>
+<!--    <a  style="margin-left: 20px; color: white; text-decoration: none">Course-Calender</a>-->
+    <a [routerLink]="['/student/course/classmates',this.key,this.colorNum]"  style="margin-left: 20px; color: white; text-decoration: none">Your Classmates</a>
+    <a  style="margin-left: 20px; color: white; text-decoration: none">Lecture FeedBack</a>
+    <a  style="margin-left: 20px; color: white; text-decoration: none">About</a>
+  </mat-toolbar-row>
+
+</mat-toolbar>

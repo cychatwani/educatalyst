@@ -33,6 +33,7 @@ public class Course {
     public Course(){
 
     }
+
     public Course(CourseDTO courseDTO, User instructor){
         this.courses_id = courseDTO.getId();
         this.course_name = courseDTO.getCourse_name();

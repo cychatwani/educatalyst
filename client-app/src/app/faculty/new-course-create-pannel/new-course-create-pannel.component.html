@@ -1,0 +1,101 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-5">
+      <br>
+      <mat-expansion-panel style="background-color:  #192A56">
+        <mat-expansion-panel-header >
+          <mat-panel-title style="color: azure;">
+            <mat-icon style="margin-top: -2.2px; margin-right: 5px;">add_circle</mat-icon> Create a new Course
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-horizontal-stepper style="background-color: #192A56" [linear]=false #stepper>
+          <mat-step [stepControl]="">
+            <form [formGroup]="newCourseForm1">
+              <ng-template matStepLabel ><div style="color: white">Essential Course Information</div></ng-template>
+
+        <mat-form-field style="width: 100%">
+          <mat-label style="color: white">Course-Title<small>(name)</small></mat-label>
+          <input formControlName="courseName" matInput style="color: white">
+          <mat-error *ngIf="newCourseForm1.controls['courseName'].hasError('required')"><span style="font-size: large">Course Title is essential<br><br></span></mat-error>
+        </mat-form-field>
+        <mat-form-field style="width: 100%">
+          <mat-label style="color: white">Course-Description</mat-label>
+            <textarea formControlName="courseDetails" matInput style="color: white"></textarea>
+          <mat-error *ngIf="newCourseForm1.controls['courseDetails'].hasError('required')"><span style="font-size: large">Course Description is essential</span></mat-error>
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%">
+          <mat-label style="color: white">Course-Email</mat-label>
+            <input formControlName="courseEmail" matInput style="color: white">
+          <mat-error *ngIf="newCourseForm1.controls['courseEmail'].hasError('required')"><span style="font-size: large">Course Email is essential</span></mat-error>
+          <mat-error *ngIf="newCourseForm1.controls['courseEmail'].hasError('email')"><span style="font-size: large">Invalid Email</span></mat-error>
+        </mat-form-field>
+            </form>
+            <button mat-button matStepperNext style="color: white">Next<mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+          </mat-step>
+
+          <mat-step [stepControl]="newCourseForm2">
+            <form [formGroup]="newCourseForm2">
+              <ng-template matStepLabel ><div style="color: white">Additional Details</div></ng-template>
+              <mat-form-field style="width: 100%">
+                <mat-label style="color: white;">Course-Cover-Image:</mat-label>
+                <mat-select formControlName="courseCoverImageUrl">
+<!--                 https://wallpapercave.com/wp/wp3134768.jpg   -->
+                  <mat-option value="https://www.solidbackgrounds.com/images/2560x1440/2560x1440-ghost-white-solid-color-background.jpg"><img src="https://www.solidbackgrounds.com/images/2560x1440/2560x1440-ghost-white-solid-color-background.jpg" style="height: 50px; width: 80px">No Image</mat-option>
+                  <mat-option value="https://wallpapercave.com/wp/wp3134768.jpg"><img src="https://wallpapercave.com/wp/wp3134768.jpg" style="height: 50px; width: 80px">Economics and Commerce</mat-option>
+                  <mat-option value="https://nexgenme.com/wp-content/uploads/2017/09/Time-and-Attendance-Management-1030x687.jpg"><img src="https://nexgenme.com/wp-content/uploads/2017/09/Time-and-Attendance-Management-1030x687.jpg" style="height: 50px; width: 80px">Business and Management </mat-option>
+                  <mat-option value="https://wallpaperaccess.com/full/702861.jpg"><img src="https://wallpaperaccess.com/full/702861.jpg" style="height: 50px; width: 80px">Law</mat-option>
+                  <mat-option value="https://wallpaperaccess.com/full/20601.jpg"><img src="https://wallpaperaccess.com/full/20601.jpg" style="height: 50px; width: 80px"> Medical</mat-option>
+                  <mat-option value="https://www.pixelstalk.net/wp-content/uploads/images1/Medical-Wallpapers-HD-768x480.jpg"><img src="https://www.pixelstalk.net/wp-content/uploads/images1/Medical-Wallpapers-HD-768x480.jpg" style="height: 50px; width: 80px"> Medical 2</mat-option>
+                  <mat-option value="http://getwallpapers.com/wallpaper/full/d/9/3/59380.jpg"><img src="http://getwallpapers.com/wallpaper/full/d/9/3/59380.jpg" style="height: 50px; width: 80px"> Chemistry</mat-option>
+                  <mat-option value="http://getwallpapers.com/wallpaper/full/5/f/0/11925.jpg"><img src="http://getwallpapers.com/wallpaper/full/5/f/0/11925.jpg" style="height: 50px; width: 80px"> Computer Science 1</mat-option>
+                  <mat-option value="https://static.techspot.com/images2/news/bigimage/2018/05/2018-05-01-image-5.png"><img src="https://static.techspot.com/images2/news/bigimage/2018/05/2018-05-01-image-5.png" style="height: 50px; width: 80px"> Computer Science 2</mat-option>
+                  <mat-option value="https://www.qacoustics.co.uk/blog/content/uploads/2016/06/Newtons-Cradle.jpg"><img src="https://www.qacoustics.co.uk/blog/content/uploads/2016/06/Newtons-Cradle.jpg" style="height: 50px; width: 80px">Physics</mat-option>
+                  <mat-option value="http://getwallpapers.com/wallpaper/full/d/e/7/94173.jpg"><img src="http://getwallpapers.com/wallpaper/full/d/e/7/94173.jpg" style="height: 50px; width: 80px">Mathematics</mat-option>
+                  <mat-option value="other">Other than these</mat-option>
+                </mat-select>
+              </mat-form-field>
+<!--              {{this.newCourseForm1|json}}-->
+<!--              courseCapacity-->
+<!--              courseCoverImageUrl-->
+<!--              customCourseCoverImageUrl-->
+              <div *ngIf="newCourseForm2.controls['courseCoverImageUrl'].value === 'other'">
+                <mat-form-field style="width: 100%">
+                  <mat-label style="color: white">Your Custom Cover Image Url:</mat-label>
+                  <input formControlName="customCourseCoverImageUrl" matInput placeholder="Paste Url of your Cover Image over  here">
+                  <mat-error *ngIf="this.newCourseForm2.controls['customCourseCoverImageUrl'].hasError('pattern')"><Span style="font-size: large">Enter a valid link address</Span></mat-error>
+                  <mat-error *ngIf="this.newCourseForm2.controls['customCourseCoverImageUrl'].hasError('required')"><span style="font-size: large">If you dont have a url please select any other option</span></mat-error>
+                </mat-form-field>
+                <br>
+                <br>
+              </div>
+              <mat-form-field style="width: 100%">
+                <mat-label style="color: white">Maximum Students Allowed</mat-label>
+                <input formControlName="courseCapacity" matInput style="color: white">
+                <mat-error *ngIf="this.newCourseForm2.controls['courseCapacity'].hasError('required')"><Span style="font-size: large">Course Capacity is essential</Span></mat-error>
+                <mat-error *ngIf="this.newCourseForm2.controls['courseCapacity'].hasError('pattern')"><Span style="font-size: large">Enter a valid Number (1-1000)</Span></mat-error>
+              </mat-form-field>
+            </form>
+            <button mat-button matStepperPrevious style="color: white">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+              Back
+              </button>
+            <button mat-button style="color: white" (click)="onRequestCreate()" [disabled]="!(newCourseForm2.valid && newCourseForm1.valid)">
+              Done
+            </button>
+          </mat-step>
+
+        </mat-horizontal-stepper>
+
+
+
+
+      </mat-expansion-panel>
+
+    </div>
+    <div class="col"></div>
+  </div>
+</div>

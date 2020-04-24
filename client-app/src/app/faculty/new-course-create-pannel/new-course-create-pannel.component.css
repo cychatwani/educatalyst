@@ -1,0 +1,14 @@
+
+
+/* to change arrow when focused */
+
+/* to change selected item color in the select list */
+
+::ng-deep .mat-step-header .mat-step-icon{
+  background-color: white;
+  color:  #192A56;
+}
+
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}

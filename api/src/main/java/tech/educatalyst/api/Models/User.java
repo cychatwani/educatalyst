@@ -2,6 +2,7 @@ package tech.educatalyst.api.Models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -26,6 +27,29 @@ public class User {
     private String password;
     @Column
     private String user_role;
+
+    @ManyToMany
+    @JoinTable(
+            name = "student_course_enrolement",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    Set<Course> courses_enrolled_in;
+
+    public long getUsers_id() {
+        return users_id;
+    }
+
+    public void setUsers_id(long users_id) {
+        this.users_id = users_id;
+    }
+
+    public Set<Course> getCourses_enrolled_in() {
+        return courses_enrolled_in;
+    }
+
+    public void setCourses_enrolled_in(Set<Course> courses_enrolled_in) {
+        this.courses_enrolled_in = courses_enrolled_in;
+    }
 
     public String getUserName() {
         return this.email;

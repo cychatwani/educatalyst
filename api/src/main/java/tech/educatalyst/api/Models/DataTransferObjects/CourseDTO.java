@@ -8,7 +8,7 @@ public class CourseDTO {
     private String course_cover_image_url;
     private String course_description;
     private int course_capacity;
-   // private long instructor_id;
+
 
     public long getId() {
         return id;

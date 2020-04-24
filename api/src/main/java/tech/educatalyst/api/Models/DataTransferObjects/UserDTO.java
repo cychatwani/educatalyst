@@ -14,6 +14,18 @@ public class UserDTO {
         return user_role;
     }
 
+    @Override
+    public String toString() {
+        return "Id: "+getId()+
+                " Name: "+getName()+
+                " Email: "+getEmail()+
+                " Image: "+getImageUrl()+
+                " Phone: "+getPhone()+
+                " password "+getPassword()+
+                " AccountType "+getAccountType()+
+                " UserRole "+getUser_role();
+    }
+
     public void setUser_role(String user_role) {
         this.user_role = user_role;
     }

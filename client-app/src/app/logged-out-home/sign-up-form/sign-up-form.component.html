@@ -1,0 +1,87 @@
+<div class="container-fluid" style="height:100%;background-image:linear-gradient(180deg,#192A56 , #2a3d8d,#4056ca,#606ebf);  ">
+  <button mat-button  (click)="onGoingBack()" class="top-buttons"><mat-icon>arrow_back</mat-icon>Back</button>
+  <button mat-button  (click)="onGoingHome()" class="top-buttons"><mat-icon>home</mat-icon>Home</button>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-lg-4 col-md-10 col-sm-10">
+      <mat-card class="from-card" data-aos="fade-down">
+        <mat-card-title class="form-card-title">Sign Up</mat-card-title>
+
+        <div *ngIf="loading" style="width: 100%">
+          <div style="text-align: center;">
+            <mat-spinner  style="margin-left: 40%"></mat-spinner>
+          </div>
+        </div>
+<!--        {{myForm.value | json}}-->
+        <form [formGroup]="myForm" *ngIf="!this.loading">
+          <mat-form-field class="form-field">
+            <mat-label>Name</mat-label>
+              <input matInput placeholder="eg: Someone Awesome"  formControlName="name" >
+            <mat-error *ngIf="myForm.controls['name'].hasError('required')"><b>Your Name is Mandatory</b></mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+            <mat-label>Phone<small>(mob)</small></mat-label>
+            <span matPrefix>+91 &nbsp;</span>
+            <input type="tel" formControlName="phone" matInput placeholder="eg: 9558104404">
+            <mat-error *ngIf="myForm.controls['phone'].hasError('required')"><b>Your Phone Number is MANDATORY</b></mat-error>
+            <mat-error *ngIf="myForm.controls['phone'].hasError('pattern')"><b>Entered Phone Number is not VALID</b></mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-field">
+           <mat-label>Email</mat-label>
+              <input matInput placeholder="eg: someoneawesome@abc.xyz"  formControlName="email" >
+            <mat-error *ngIf="myForm.controls['email'].hasError('required')"><b>Email is Mandatory</b></mat-error>
+            <mat-error *ngIf="myForm.controls['email'].hasError('email')"><b>Please enter a valid email</b></mat-error>
+          </mat-form-field>
+          <br>
+          <label id="UserRole-radio-group-label">You are a</label>
+          <mat-radio-group
+            aria-labelledby="UserRole-radio-group-label"
+            class="UserRole-radio-group"
+            formControlName="user_role">
+            <mat-radio-button color="primary" class="example-radio-button" *ngFor="let userRole of userRoles" [value]="userRole">
+              {{userRole|titlecase}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <div formGroupName="Passwords">
+            <mat-form-field class="form-field">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hide ? 'text' : 'password'"  placeholder="********" formControlName="password">
+              <mat-hint>Must contain one of each ['A-Z'],['a-z'],['0-9'] Min length: 8</mat-hint>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon style="font-size: larger">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="myForm.controls['Passwords'].controls['password'].hasError('required')"><b>Setting a password is Mandatory</b></mat-error>
+              <mat-error *ngIf="myForm.controls['Passwords'].controls['password'].hasError('minlength')"><b>Password too short</b></mat-error>
+              <mat-error *ngIf="myForm.controls['Passwords'].controls['password'].hasError('maxlength')"><b>Password too long</b></mat-error>
+              <mat-error *ngIf="myForm.controls['Passwords'].controls['password'].hasError('pattern')"><b>Password Not Strong Enough</b></mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field">
+              <mat-label>Confirm-password</mat-label>
+              <input matInput [type]="hide ? 'text' : 'password'" [errorStateMatcher]="matcher" placeholder="********" formControlName="passwordConfirm">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon style="font-size: larger">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="myForm.controls['Passwords'].controls['passwordConfirm'].hasError('required')"><b>Confirming a password is Mandatory</b></mat-error>
+              <mat-error *ngIf="myForm.controls['Passwords'].hasError('notSame')">
+                <b>Passwords do not match</b>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <br>
+          <button mat-flat-button color="primary" [disabled]="!myForm.valid" style="width: 100%;"(click)="onSignUpRequest()">Sign me up</button>
+        </form>
+        <h3 style="text-align: center; color: #192A56">OR<small> (coming soon)</small></h3>
+        <div class="row">
+          <div class="col">
+            <button mat-flat-button color="" disabled  class="social-login-buttons">Sign-Up with<img src="../../../assets/img/git.png" height="20px"  style="margin-left: 10px"></button>
+          </div>
+          <div class="col">
+            <button mat-flat-button color=""  disabled class="social-login-buttons">Sign-Up with<img src="../../../assets/img/google.png" height="20px"  style="margin-left: 10px"></button>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+

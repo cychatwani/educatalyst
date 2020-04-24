@@ -1,0 +1,69 @@
+.course-card {
+  width: 100%;
+  height: 500px;
+  color: white
+}
+.mat-card{
+  display:flex;/** <-- Add this **/
+  flex-direction: column;/** <-- Add this **/
+}
+
+/** Add flex-shrink to be 0 so the header should not be clipped or shrink if the parent card height changes **/
+.mat-card-header {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0; /** <-- Add this **/
+}
+
+/** Make the card content to be flex grow factor of 1, this is going to scale to your inline height or custom height.  Content should scroll within the card height and not expand the card's height.  **/
+.mat-card-content{
+  flex-grow: 1;/** <-- Add this **/
+  overflow: auto; /** <-- Add this **/
+  /* outline: 1px solid red; */
+}
+
+.bgcolor1{
+  background-color: #2b005c;
+}
+.bgcolor2{
+  background-color: darkgreen;
+}
+.bgcolor4{
+  background-color: #99004c;
+}
+
+.bgcolor5{
+  background-color: #b36522;
+}
+.bgcolor3{
+  background-color: #e84118;
+}
+
+.bgcolor6{
+  background-color: #07655e;
+}
+
+
+/*__________________*/
+
+::-webkit-scrollbar {
+  /*height: 10px;*/
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 25px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 25px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: gray;
+}

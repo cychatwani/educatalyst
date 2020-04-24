@@ -1,0 +1,33 @@
+.bgcolor1{
+  background-color: rgba(43,25,92,0.7);
+}
+.bgcolor2{
+  background-color: rgba(77, 109, 44, 0.6);
+  /*color: black;*/
+}
+.bgcolor4{
+  background-color: rgba(153,0,76,0.75);
+}
+.bgcolor5{
+  background-color: #ec8f24;
+}
+.bgcolor3{
+  background-color:rgba(255,67,17,0.7);
+}
+.bgcolor6{
+  /* 7, 101, 94, 0.75 */
+  background-color: rgba(7,101,94,0.75);
+}
+
+
+.mat-header-cell {
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-cell {
+  text-align: center;
+  justify-content:center;
+}
+
