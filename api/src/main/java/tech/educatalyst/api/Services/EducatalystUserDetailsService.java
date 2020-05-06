@@ -28,7 +28,7 @@ public class EducatalystUserDetailsService implements UserDetailsService {
         newUser.setEmail(user.getEmail());
         newUser.setId(user.getId());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        newUser.setAccountType("local");
+        newUser.setAccountType(user.getAccountType());
         newUser.setImageUrl(user.getImageUrl());
         newUser.setPhone(user.getPhone());
         newUser.setName(user.getName());

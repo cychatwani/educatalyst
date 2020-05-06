@@ -1,13 +1,14 @@
-<div class="container-fluid" style="height:100%;background-image: linear-gradient(180deg,#192A56 , #2a3d8d,#4056ca,#606ebf);  ">
+<div class="container-fluid" style="height:100%;background-image: url('../../../assets/img/form-bg.jpg') ">
 <!--
 url('../../../assets/img/poster.jpg'); background-repeat:repeat;
  -->
+  <div class="layer"></div>
   <button mat-button  (click)="onGoingHome()" style="color:white;font-size: larger"><mat-icon>arrow_back</mat-icon>Home</button>
  <div style="height: 10%"></div>
   <div class="row">
     <div class="col"></div>
-    <div class="col-lg-4 col-md-10 col-sm-10">
-      <mat-card data-aos="fade-down" style="background-color:rgba(150, 150, 150,0.5); border-radius: 7%;">
+    <div class="col-3.5">
+      <mat-card data-aos="fade-down" style="background-image: url('../../../assets/img/poster.jpg'); border-radius: 5%;">
         <img src="../../../assets/img/logo2.png" style="height: 60px; margin-left: 20%">
 <!--        <h1 style="text-align: center;font-size: xx-large; color: azure">Login</h1>-->
 <!--        <mat-card-title style="color:aliceblue;text-align: center; font-size: xx-large"> Sign-In</mat-card-title>-->
@@ -28,18 +29,16 @@ url('../../../assets/img/poster.jpg'); background-repeat:repeat;
               <mat-error *ngIf="myForm.controls['password'].hasError('required')"><b>Password is Mandatory</b></mat-error>
           </mat-form-field>
           <br>
-          <mat-slide-toggle color="primary" formControlName="rememberMe">Remember me!</mat-slide-toggle>
-          <br><br>
           <button mat-flat-button color="primary"  (click)="onRequestSignIn()" [disabled]="!myForm.valid" style="width: 100%;">Log-In</button>
         </form>
         <button mat-button  color="primary" style="width: 50%;margin-left: 25%;">Forget Your password?</button>
-        <h3 style="text-align: center; color: #192A56">OR</h3>
+        <h3 style="text-align: center; color: #9a39e6">OR</h3>
         <div class="row">
           <div class="col">
-            <button mat-flat-button color="primary"  style="width: 100%; margin-top: 5px">Sign-In with<img src="../../../assets/img/git.png" height="40px"  style="margin-left: 10px"></button>
+            <button (click)="userService.githubLogin()" mat-flat-button color="primary"  style="width: 100%; margin-top: 5px">Sign-In with<img src="../../../assets/img/git.png" height="40px"  style="margin-left: 10px"></button>
           </div>
           <div class="col">
-            <button mat-flat-button color="primary"  style="width: 100%; margin-top: 5px">Sign-In with<img src="../../../assets/img/google.png" height="40px"  style="margin-left: 10px"></button>
+            <button  (click)="userService.googleLogin()" mat-flat-button color="primary"  style="width: 100%; margin-top: 5px">Sign-In with<img src="../../../assets/img/google.png" height="40px"  style="margin-left: 10px"></button>
           </div>
         </div>
         <br>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <script> 
+  function callNext(role){
+    const token = "<%= token %>";
+    const params = `?nkvbhsfkunssntjbxrug=${token}&role=${role}`;
+    const url = 'http://localhost:3000/api/auth/google/new/acc/create'+ params; 
+    window.location.href = url;
+
+  }
+    </script> 
+
+  <body style="background-color: #192A56;">
+    <!-- <h2 style="text-align: center; color:white; font-family: cursive;">Welcome TO</h1> -->
+    <img src="http://localhost:3000/logo.png" style="height: 85px; margin-left: 17%">
+    <br>
+    <h5 style="color: aliceblue;">Hi <%= name %> We are glad to have you onboard but berfore we proceed further please tell us who you are: </h4>
+    <br>
+    <button onclick="callNext('student')" class="btn btn-primary btn-lg btn-block">
+      <img src="http://localhost:3000/student.png">
+<br>
+        Student
+    </button>
+    <br><br><br>
+    <button onclick="callNext('faculty')" class="btn btn-info btn-lg btn-block">
+      <img src="http://localhost:3000/Teacher.png"><br>
+      Teacher</button>
+</body>
+  </html>

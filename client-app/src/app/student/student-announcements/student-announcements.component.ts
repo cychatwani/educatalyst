@@ -124,7 +124,7 @@ export class StudentAnnouncementsComponent implements OnInit {
     this.announcements.sort((dt1, dt2) => {
       dt1 = dt1.realDate;
       dt2 = dt2.realDate;
-      return dt1 - dt2;
+      return dt2 - dt1;
     });
     for (const a of this.commentValueSubjects) {
      // a.subscribe(console.log);

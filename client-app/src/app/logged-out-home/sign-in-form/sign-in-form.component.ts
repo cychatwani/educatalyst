@@ -40,7 +40,6 @@ export class SignInFormComponent implements OnInit {
       this.openSnackBar('Bad-Credentials:', 'Incorrect username or password');
       return;
     });
-    console.log(role);
     if (role === 'student') {
        await this.router.navigate(['student/dashboard']);
   } else if (role === 'faculty') {

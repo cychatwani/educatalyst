@@ -30,7 +30,9 @@ public class JwtUtill {
         return claims;
     }
     public  <T>T extractClaim (String token, Function<Claims,T> claimsResolver){
+        System.out.println(token);
         final  Claims claims = extractAllClaims(token);
+        System.out.println(claims.getSubject());
         return claimsResolver.apply(claims);
     }
     public long extractUserId(String token) {

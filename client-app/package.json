@@ -25,6 +25,7 @@
     "aos": "^2.3.4",
     "bootstrap": "^4.4.1",
     "hammerjs": "^2.0.8",
+    "mat-file-upload": "^1.4.1",
     "rxjs": "~6.4.0",
     "save": "^2.4.0",
     "tslib": "^1.10.0",

@@ -8,7 +8,7 @@ import {
   MatIconModule,
   MatMenuModule,
   MatSlideToggleModule,
-  MatToolbarModule, MatExpansionModule, MatStepperModule, MatTableModule, MatTreeModule
+  MatToolbarModule, MatExpansionModule, MatStepperModule, MatTableModule, MatTreeModule, MatSidenavModule, MatDividerModule
 } from '@angular/material';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule, MatCheckboxModule, MatChipsModule, MatSelectModule, MatRadioModule} from '@angular/material';
@@ -39,21 +39,38 @@ import { FacultyDashboardCourseCardListComponent } from './faculty/faculty-dashb
 import { StudentCoursePageHeaderBigComponent } from './student/student-course-page-header-big/student-course-page.component-header-big';
 import { StudentClassmatesComponent } from './student/student-classmates/student-classmates.component';
 import { StudentAnnouncementsComponent } from './student/student-announcements/student-announcements.component';
-import { DoubtQnaComponent } from './student/doubt-qna/doubt-qna.component';
+import { GithubSecretComponent } from './secret/github-secret/github-secret.component';
+import { DoubtQuestionPageComponent } from './student/doubt-question-page/doubt-question-page.component';
+import { CourseAboutPageComponent } from './student/course-about-page/course-about-page.component';
+import { AskQuestionComponent } from './student/doubt-question-page/ask-question/ask-question.component';
+// tslint:disable-next-line:max-line-length
+import { StudentCoursePageHeaderSmallComponent } from './student/student-course-page-header-small/student-course-page-header-small.component';
+import {MatFileUploadModule} from 'mat-file-upload';
 
 
 
 
 const AppRouts: Routes = [
   {path: '', component: HomeComponent},
+  {path: 'secretGit', component: GithubSecretComponent},
   {path: 'signup', component: SignUpFormComponent},
   {path: 'signin', component: SignInFormComponent},
   {path: 'faculty/dashboard', component: FacultyHomeComponent, canActivate : [AuthGuard], data: {roles: ['faculty']}},
   {path: 'student/dashboard', component: StudentHomeComponent, canActivate : [AuthGuard], data: {roles: ['student']}},
   // tslint:disable-next-line:max-line-length
-  {path: 'student/course/classmates/:key/:color', component: StudentClassmatesComponent,  canActivate : [AuthGuard], data: {roles: ['student']}},
+  {path: 'student/course', component: StudentCoursePageHeaderSmallComponent,  canActivate : [AuthGuard], data: {roles: ['student']},
+    // /classmates/:key/:color
+    children: [
+      {path: 'Announcements/:key/:color', component: StudentAnnouncementsComponent,  canActivate : [AuthGuard], data: {roles: ['student']}},
+      {path: 'DoubtQNA/:key/:color', component: DoubtQuestionPageComponent,  canActivate : [AuthGuard], data: {roles: ['student']}},
+      {path: 'classmates/:key/:color', component: StudentClassmatesComponent,  canActivate : [AuthGuard], data: {roles: ['student']}},
+    ]
+  },
   // tslint:disable-next-line:max-line-length
-  {path: 'student/course/Announcements/:key/:color', component: StudentAnnouncementsComponent,  canActivate : [AuthGuard], data: {roles: ['student']}},
+  // // tslint:disable-next-line:max-line-length
+  // tslint:disable-next-line:max-line-length
+  // // tslint:disable-next-line:max-line-length
+  // tslint:disable-next-line:max-line-length
 
 
 ];
@@ -79,7 +96,12 @@ const AppRouts: Routes = [
     StudentCoursePageHeaderBigComponent,
     StudentClassmatesComponent,
     StudentAnnouncementsComponent,
-    DoubtQnaComponent,
+    // DoubtQnaComponent,
+    GithubSecretComponent,
+    DoubtQuestionPageComponent,
+    CourseAboutPageComponent,
+    AskQuestionComponent,
+    StudentCoursePageHeaderSmallComponent,
   ],
   imports: [
     MatSnackBarModule,
@@ -105,6 +127,9 @@ const AppRouts: Routes = [
     MatStepperModule,
     MatTableModule,
     MatTreeModule,
+    MatSidenavModule,
+    MatFileUploadModule,
+    MatDividerModule,
   ],
   providers: [StudentDashboardCourseCardListComponent],
   bootstrap: [AppComponent]

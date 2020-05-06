@@ -15,12 +15,12 @@ public class FIleController {
     @Autowired
     StorageService storageService;
 
-    @PostMapping("upload")
-    public Boolean upload(@RequestParam MultipartFile file){
-        List allowedExtenstions = new ArrayList<String>();
-        allowedExtenstions.add("pdf");
-        allowedExtenstions.add("png");
-        allowedExtenstions.add("jpg");
-        return storageService.storeImage(file , allowedExtenstions);
-    }
+//    @PostMapping("upload")
+//    public Boolean upload(@RequestParam MultipartFile file){
+//        List allowedExtenstions = new ArrayList<String>();
+//        allowedExtenstions.add("pdf");
+//        allowedExtenstions.add("png");
+//        allowedExtenstions.add("jpg");
+//        return storageService.storeImage(file , allowedExtenstions);
+//    }
 }

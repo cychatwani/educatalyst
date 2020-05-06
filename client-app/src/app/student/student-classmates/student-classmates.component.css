@@ -1,22 +1,27 @@
 .bgcolor1{
-  background-color: rgba(43,25,92,0.7);
+  background-color: rgb(43,25,92);
+  height: 140px;
 }
 .bgcolor2{
-  background-color: rgba(77, 109, 44, 0.6);
-  /*color: black;*/
+  background-color: rgb(77, 109, 44);
+  height: 140px;
 }
 .bgcolor4{
-  background-color: rgba(153,0,76,0.75);
+  background-color: rgb(153,0,76);
+  height: 140px;
 }
 .bgcolor5{
   background-color: #ec8f24;
+  height: 140px;
 }
 .bgcolor3{
-  background-color:rgba(255,67,17,0.7);
+  background-color:rgb(255,67,17);
+  height: 140px;
 }
 .bgcolor6{
   /* 7, 101, 94, 0.75 */
-  background-color: rgba(7,101,94,0.75);
+  background-color: rgb(7,101,94);
+  width: 80%;
 }
 
 

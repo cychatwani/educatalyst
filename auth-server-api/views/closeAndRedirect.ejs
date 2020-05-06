@@ -1,0 +1,16 @@
+<html>
+<head>
+
+    <script language="Javascript">
+
+        function redirectToFB(){
+            window.opener.location.href="http://localhost:4200/secretGit?token=<%= token %>&role=<%= role %>";
+            self.close();
+        }
+
+    </script>
+
+</head>
+<body onload="redirectToFB()">
+</body>
+</html>

@@ -1,0 +1,113 @@
+.bgcolor1{
+  background-color: #2b005c;
+}
+.sideNav1{
+  background-image: linear-gradient(#2b005c ,#262626 , black);
+  color: white;
+  width: 16.5%;
+  font-size: x-large;
+}
+.bgcolor2{
+  background-color: darkgreen;
+}
+.sideNav2{
+  background-image: linear-gradient(darkgreen,#262626,black);
+  color: white;
+  width: 16.5%;
+  font-size: x-large;
+}
+.bgcolor4{
+  background-color: #99004c;
+}
+.sideNav4{
+  background-image: linear-gradient(#99004c,#262626, black);
+  color: white;
+  width: 16.5%;
+  font-size: x-large;
+}
+
+.bgcolor5{
+  background-color: #b36522;
+}
+.sideNav5{
+  background-image: linear-gradient(#b36522,#262626, black);
+  color: white;
+  width: 16.5%;
+  font-size: x-large;
+}
+
+.bgcolor3{
+  background-color: #e84118;
+}
+.sideNav3{
+  background-image: linear-gradient(#e84118 ,#262626, black);
+  color: white;
+  width: 16.5%;
+  font-size: x-large;
+}
+
+.bgcolor6{
+  background-color: #07655e;
+}
+
+.sideNav6{
+  background-image: linear-gradient(#07655e ,#262626, black);
+  color: white;
+  width: 16.5%;
+  font-size: x-large;
+}
+
+
+.avatar {
+  vertical-align: middle;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+
+
+/* unvisited link */
+a:link {
+  color: inherit;
+}
+
+/* visited link */
+a:visited {
+  color: inherit;
+}
+
+/* mouse over link */
+a:hover {
+  color: inherit;
+}
+
+/* selected link */
+a:active {
+  color: inherit;
+}
+
+hr.new1 {
+  border-top: 1px solid red;
+}
+
+
+
+
+.example-container {
+  width: 100px;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+

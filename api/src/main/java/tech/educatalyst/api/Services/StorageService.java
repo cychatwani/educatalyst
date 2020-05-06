@@ -15,16 +15,16 @@ public class StorageService {
     @Autowired
     FileRepo fileRepo;
 
-    public Boolean  storeImage(MultipartFile file, List<String> allowedExtensions){
-        Files lastFile = fileRepo.findFirstByOrderByIdDesc();
-        long fileId = 0;
-        if(lastFile != null) {
-             fileId = lastFile.getId() + 1;
-        }
-        String extenstion = FilenameUtils.getExtension(file.getOriginalFilename());
-        if(!(allowedExtensions.contains(extenstion))){
-            return false;
-        }
-
-    }
+//    public Boolean  storeImage(MultipartFile file, List<String> allowedExtensions){
+//        Files lastFile = fileRepo.findFirstByOrderByIdDesc();
+//        long fileId = 0;
+//        if(lastFile != null) {
+//             fileId = lastFile.getId() + 1;
+//        }
+//        String extenstion = FilenameUtils.getExtension(file.getOriginalFilename());
+//        if(!(allowedExtensions.contains(extenstion))){
+//            return false;
+//        }
+//
+//    }
 }

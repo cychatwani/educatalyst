@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-5">
+      <br>
+      <mat-expansion-panel [expanded]="this.panelOpenState" style="background-image: linear-gradient(to right,#101010,#2c2d31,#6a6a6a)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+           <h3>
+             Ask a doubt to the course instructor
+           </h3>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+         Please submit the  image before submitting
+        </mat-panel-description>
+        <form [formGroup]="formGroup">
+          <mat-form-field style="width: 100%">
+            <mat-label style="font-size: large">Your Question</mat-label>
+            <input formControlName="question" matInput style="font-size: large">
+          </mat-form-field>
+        </form>
+        <mat-file-upload
+  [labelText]="'Upload an Image(Optional)'"
+  [selectButtonText]="'Select Image'"
+  [selectFilesButtonType]="button"
+  [uploadButtonText]="'Upload'"
+  [uploadButtonType]="submit"
+  [allowMultipleFiles]="false"
+  [showUploadButton]="true"
+  [customSvgIcon]="'close_custom'"
+  [acceptedTypes]="'.png,.jpg,.jpeg'"
+  (uploadClicked)="onUploadClicked($event)"
+>
+</mat-file-upload>
+        <mat-progress-spinner *ngIf="imageUploading"></mat-progress-spinner>
+        <span *ngIf="imageUploaded">
+          <img src="../../../../assets/img/done.png" style="height:40px ">
+        </span>
+        <br>
+        <button mat-raised-button (click)="onRequestAsk()" color="accent" style="width: 100%">Submit Question</button>
+      </mat-expansion-panel>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>

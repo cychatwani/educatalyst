@@ -40,7 +40,7 @@ export class SignUpFormComponent implements OnInit {
     if (this.myForm.invalid) { return; }
     this.loading = true;
     // tslint:disable-next-line:max-line-length
-    this.user = new Users(this.myForm.get('name').value, this.myForm.get('email').value, '123', 'local', this.myForm.get('phone').value, this.myForm.get('Passwords').get('password').value, this.myForm.get('user_role').value);
+    this.user = new Users(this.myForm.get('name').value, this.myForm.get('email').value, '', 'local', this.myForm.get('phone').value, this.myForm.get('Passwords').get('password').value, this.myForm.get('user_role').value);
     this.userService.register(this.user).pipe(first()).subscribe(
       data => {
         setTimeout(() => {
