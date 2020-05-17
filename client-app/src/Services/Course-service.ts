@@ -53,6 +53,14 @@ export class CourseService {
     }).toPromise();
     return result;
   }
+  public  async makeAnnouncements(annnouncments: any) {
+    const result = this.http.post('http://localhost:1236/faculty/makeAnnouncement', annnouncments, {
+      headers: new HttpHeaders({
+        Authorization : 'Bearer ' + this.userService.currentUsertoken
+      })
+    }).toPromise();
+    return result;
+  }
   public  async makeComment(commentDto: any) {
     const result = this.http.post('http://localhost:1236/makeComment', commentDto, {
       headers: new HttpHeaders({

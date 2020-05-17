@@ -21,13 +21,13 @@
     </div>
     <mat-divider></mat-divider><br>
     <a [routerLink]="['/student/course/Announcements',this.key,this.colorNum]" style="font-size: large;text-decoration: none" ><mat-icon>nature</mat-icon>Announcements</a><br><br>
-    <a  style=" text-decoration: none;font-size: large;"><mat-icon>assignment</mat-icon>Assignments</a><br><br>
+    <a  [routerLink]="['/student/course/assignment',this.key,this.colorNum]"  style=" text-decoration: none;font-size: large;"><mat-icon>assignment</mat-icon>Assignments</a><br><br>
     <a [routerLink]="['/student/course/DoubtQNA',this.key,this.colorNum]"  style=" font-size: large;text-decoration: none"><mat-icon>contact_support</mat-icon>Ask the Instructor</a><br><br>
     <a  style=" font-size: large;text-decoration: none"><mat-icon>assessment</mat-icon>Exams & Quizzes</a><br><br>
     <!--    <a  style="margin-left: 20px; color: white; text-decoration: none">Course-Calender</a>-->
     <a [routerLink]="['/student/course/classmates',this.key,this.colorNum]"  style=" font-size: large;text-decoration: none"><mat-icon>people</mat-icon>Your Classmates</a><br><br>
-    <a  style="font-size: large; text-decoration: none"><mat-icon>grade</mat-icon>Lecture FeedBack</a><br><br>
-    <a  style=" font-size: large;text-decoration: none"><mat-icon>feedback</mat-icon>About</a>
+    <a [routerLink]="['/student/course/feedBack',this.key,this.colorNum]"  style="font-size: large; text-decoration: none"><mat-icon>grade</mat-icon>Lecture FeedBack</a><br><br>
+    <a style=" font-size: large;text-decoration: none"><mat-icon>feedback</mat-icon>About</a>
     <mat-divider></mat-divider>
     <button mat-button>
       <mat-icon>people</mat-icon>

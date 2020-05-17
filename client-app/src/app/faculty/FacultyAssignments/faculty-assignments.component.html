@@ -1,0 +1,111 @@
+<!--<script src="angular.min.js"></script>-->
+<!--&lt;!&ndash; shim is needed to support non-HTML5 FormData browsers (IE8-9)&ndash;&gt;-->
+<!--<script src="ng-file-upload-shim.min.js"></script>-->
+<!--<script src="ng-file-upload.min.js"></script>-->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col-8">
+      <br>
+      <mat-card style="width:100%; height: 660px; overflow:  auto">
+        <mat-card-title style="text-align: center">
+         Course Assignments
+        </mat-card-title>
+        <mat-tab-group>
+          <mat-tab label="Given Assignments">
+            <div *ngIf="PendingAssignments.length === 0">
+              <img src="../../../assets/img/noPending.png" style="margin-top: 18%;margin-left: 43%;height: 80px">
+              <h3 style="text-align: center; color: silver">ALL DONE !! Nothing pending</h3>
+            </div>
+            <div *ngFor="let assignment of PendingAssignments">
+              <mat-card style="" [ngClass]="{'bgcolor1':(this.colorNum + 1) % 6 == 1, 'bgcolor2':(this.colorNum+1) % 6 == 2, 'bgcolor3':(this.colorNum+1) % 6 == 3, 'bgcolor4':(this.colorNum+1) % 6 == 4,'bgcolor5':(this.colorNum+1) % 6 == 5,'bgcolor6':(this.colorNum+1) % 6 == 0}">
+                <mat-card-header>
+                  <img src="../../../assets/img/assignment.png" alt="ds" mat-card-avatar>
+                  <mat-card-title>{{assignment.tittle}}</mat-card-title>
+                  <mat-card-subtitle>Opened-On: {{assignment.dateOpened | date}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <p style="text-align: justify; font-size: larger">
+                    {{assignment.assignmentDescription}}
+                  </p>
+                  <p style="color: silver; font-size: medium" *ngIf="assignment.canSubmit && !(assignment.lessThan1Day)">
+                    Submission-DeadLine:
+                    {{assignment.submissionDeadline | date:"fullDate"}}
+                    {{assignment.submissionDeadline | date:"shortTime"}}
+                  </p>
+                  <p style="color: silver; font-size: medium" *ngIf="assignment.canSubmit && (assignment.lessThan1Day)">
+                    Time-Remaining:
+                    <countdown [config]="{leftTime: assignment.secondsRemaining}"></countdown>
+                  </p>
+                </mat-card-content>
+                <button mat-button>View Submissions</button>
+              </mat-card>
+              <br>
+            </div>
+          </mat-tab>
+          <mat-tab label="New Assignment"><h2>Post New Assignment</h2>
+            <form [formGroup]="NewAssignmentForm">
+              <mat-form-field style="width: 100%">
+                <mat-label>Assignment Title</mat-label>
+                <input formControlName="tittle" matInput>
+                <mat-error *ngIf="this.NewAssignmentForm.get('tittle').hasError('required')" style="font-size: larger">
+                  Title is required property of the assignment
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field style="width: 50%;">
+                <mat-label>Assignment Opening Date </mat-label>
+                <input formControlName="dateOpened" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field style="width: 50%;">
+                <mat-label>Assignment Opening Time </mat-label>
+                <input matInput formControlName="timeOpened" type="time">
+              </mat-form-field>
+              <mat-form-field style="width: 50%;">
+                <mat-label>Assignment Deadline Date </mat-label>
+                <input formControlName="dateSubmissionDeadline" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field style="width: 50%;">
+                <mat-label>Assignment Deadline Time </mat-label>
+                <input matInput formControlName="timeSubmissionDeadline" type="time">
+              </mat-form-field>
+              <mat-form-field style="width: 100%">
+                <mat-label>Assignment Description</mat-label>
+                <textarea matInput formControlName="assignmentDescription" rows="3"></textarea>
+              </mat-form-field>
+            <mat-form-field style="width: 100%">
+              <mat-label>Maximum Points for the assignment</mat-label>
+              <input matInput type="number" formControlName="maxPoints">
+            </mat-form-field>
+              <mat-card style="background-color: rgba(255,255,255,0.3)">
+                <mat-hint>Please Upload the file before you submit the form</mat-hint><br>
+                <mat-file-upload style="color: white"
+                                 [labelText]="'Select your assignment file'"
+                                 [selectButtonText]="'Choose File'"
+                                 [selectFilesButtonType]="button"
+                                 [uploadButtonText]="'Upload'"
+                                 [uploadButtonType]="button"
+                                 [allowMultipleFiles]="false"
+                                 [showUploadButton]="true"
+                                 [customSvgIcon]="'close_custom'"
+                                 [acceptedTypes]="'.pdf, .xls, .ppt, .pptx , .pptx , .key, .c, .png, .jpg, .jpeg '"
+                                 (uploadClicked)="onUploadClicked($event)"
+                                 (selectedFilesChanged)="onSelectedFilesChanged($event, assignment.id)"
+                >
+                </mat-file-upload>
+                <div *ngIf="this.fileUploaded === true"><img src="../../../assets/img/done.png" style="height: 40px"></div>
+              </mat-card><br>
+              <button [ngClass]="{'bgcolor1':(this.colorNum + 1) % 6 == 1, 'bgcolor2':(this.colorNum+1) % 6 == 2, 'bgcolor3':(this.colorNum+1) % 6 == 3, 'bgcolor4':(this.colorNum+1) % 6 == 4,'bgcolor5':(this.colorNum+1) % 6 == 5,'bgcolor6':(this.colorNum+1) % 6 == 0}" (click)="postAssignment()"  mat-raised-button style="width: 100%">Post the assignment</button>
+            </form>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>

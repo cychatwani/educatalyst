@@ -1,0 +1,193 @@
+<div class="container-fluid">
+  <br>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <mat-card style="height: 650px; overflow: auto">
+        <mat-tab-group class="toolbar-flex">
+          <mat-tab style="margin-left: 40%" label="Questions Not Answered">
+            <div *ngFor="let question of UnanswredQuestions">
+              <mat-card [ngClass]="{'bgcolor1':(this.colorNum + 1) % 6 == 1, 'bgcolor2':(this.colorNum+1) % 6 == 2, 'bgcolor3':(this.colorNum+1) % 6 == 3, 'bgcolor4':(this.colorNum+1) % 6 == 4,'bgcolor5':(this.colorNum+1) % 6 == 5,'bgcolor6':(this.colorNum+1) % 6 == 0}">
+                <mat-card-header><div mat-card-avatar class="example-header-image"></div> <div mat-card-avatar ></div>
+                  <mat-card-title>{{question.student.name}}</mat-card-title>
+                  <mat-card-subtitle>{{question.realDate| date:'medium'}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>
+                   {{question.question}}
+                  </p>
+                </mat-card-content>
+                <img mat-card-image *ngIf="question.image_url !== '' " src="{{question.image_url}}" alt="Photo of a Shiba Inu">
+              </mat-card>
+
+              <br>
+            </div>
+          </mat-tab>
+          <mat-tab label="Answered Questions">
+            <div *ngFor="let question of AnsweredQuestions">
+
+              <mat-card style="max-height: 400px; overflow: auto" [ngClass]="{'bgcolor1':(this.colorNum + 1) % 6 == 1, 'bgcolor2':(this.colorNum+1) % 6 == 2, 'bgcolor3':(this.colorNum+1) % 6 == 3, 'bgcolor4':(this.colorNum+1) % 6 == 4,'bgcolor5':(this.colorNum+1) % 6 == 5,'bgcolor6':(this.colorNum+1) % 6 == 0}">
+                <mat-card-header><div mat-card-avatar class="example-header-image"></div> <div mat-card-avatar ></div>
+                  <mat-card-title>{{question.student.name}}</mat-card-title>
+                  <mat-card-subtitle>{{question.realDate| date:'medium'}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>
+                    {{question.question}}
+                  </p>
+                </mat-card-content>
+                <img mat-card-image *ngIf="question.image_url !== '' " src="{{question.image_url}}" alt="Photo of a Shiba Inu">
+                <button mat-button (click)="question.viewAnswer = !question.viewAnswer" style="margin-left: -20px">
+                  <span *ngIf="!question.viewAnswer">
+                    View
+                    <span *ngIf="question.answers.length === 1"> Answer</span>
+                    <span *ngIf="question.answers.length !== 1">{{question.answers.length}} Answers</span>
+                  </span>
+                  <span *ngIf="question.viewAnswer">
+                    Hide Answers
+                  </span>
+                </button>
+                <div *ngIf="question.viewAnswer">
+                  <div  *ngFor="let answer of question.answers">
+                    <mat-card style="background-color: rgba(255,255,255,0.3); max-height: 200px; overflow: auto">
+                     <mat-card-header>
+                       <div mat-card-avatar class="answer-header-image"></div>
+                       <mat-card-title>{{this.CourseInfo.instructor.name}}</mat-card-title>
+                       <mat-card-subtitle>(Course Instructor)</mat-card-subtitle>
+                       <mat-card-subtitle>{{answer.realDate| date:'medium'}}</mat-card-subtitle>
+                     </mat-card-header>
+                      <mat-card-content>
+                        <p>
+                          {{answer.answer}}
+                        </p>
+                      </mat-card-content>
+                      <img mat-card-image *ngIf="answer.image_url !== '' " src="{{answer.image_url}}" alt="Photo of a Shiba Inu">
+
+                      <mat-card-actions>
+                        <!--    <button mat-button>Comment</button>-->
+                        <button mat-button (click)="answer.viewComments = !answer.viewComments">
+                          <span *ngIf="!(answer.viewComments)">View comments </span>
+                          <span *ngIf="answer.viewComments">Hide comment Section</span>
+                        </button>
+                      </mat-card-actions>
+
+<!--                      <div *ngIf="answer.viewComments" style="width: 100%">-->
+<!--                        <div style="max-height: 280px;  width:100%;overflow: auto">-->
+<!--                          <mat-spinner *ngIf="loadingComments[i]" style="margin-left: 45%;" color="accent"></mat-spinner>-->
+<!--                          <h4 style="margin-top: -5px;">Comments:</h4>-->
+<!--                          <div style="margin-top: -2%;">-->
+<!--                            <form [formGroup]="this.commentForms.get(announcement.id)">-->
+<!--                              <mat-form-field style="width: 98%">-->
+<!--                                <mat-label>Comment</mat-label>-->
+<!--                                <input matInput   formControlName="replyComment">-->
+<!--                              </mat-form-field>-->
+<!--                              <button  style="margin-left: -2%; font-size: medium" mat-button (click)="submitComment(announcement.id,i)">Comment</button>-->
+
+<!--                            </form>-->
+<!--                          </div>-->
+<!--                          <mat-tree [dataSource]="dataSources[i]" [treeControl]="treeControls[i]" class="example-tree" style="background-color: transparent; margin-top: -20px">-->
+<!--                            &lt;!&ndash; This is the tree node template for leaf nodes &ndash;&gt;-->
+
+<!--                            <mat-tree-node  *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding matTreeNodePaddingIndent="2">-->
+<!--                              <div class="mat-tree-node">-->
+<!--                                &lt;!&ndash; use a disabled button to provide padding for tree leaf &ndash;&gt;-->
+<!--                                <button mat-icon-button disabled></button>-->
+<!--                                &lt;!&ndash;              <mat-card>0&ndash;&gt;-->
+<!--                                <mat-card style="margin-left: -40px;width: 99% !important;background-color: rgba(255,255,255,0.05);">-->
+<!--                                  <mat-card-header>-->
+<!--                                    <div mat-card-avatar class="comment-header-image"></div>-->
+<!--                                    <mat-card-title style="font-size: medium">{{node.commenter.name}}</mat-card-title>-->
+<!--                                    &lt;!&ndash;    <mat-card-subtitle>{{this.course.instructor.name}}</mat-card-subtitle>&ndash;&gt;-->
+<!--                                    <mat-card-subtitle>-->
+<!--                                      <div style="width: 100%;justify-content: right">{{node.commenter.user_role | titlecase}}</div>-->
+<!--                                    </mat-card-subtitle>-->
+<!--                                  </mat-card-header>-->
+<!--                                  <span>-->
+<!--                {{node.comment}}-->
+<!--                                    <br>-->
+<!--              </span>-->
+<!--                                  <button mat-flat-button color="accent"  style="margin-top: 10px;font-size: small" (click)="viewcommentReply(node.id)">-->
+<!--                                    <span *ngIf="!showCommentSectionReply[node.id]">Reply</span>-->
+<!--                                    <span *ngIf="showCommentSectionReply[node.id]">Cancel replying</span>-->
+<!--                                  </button>-->
+<!--                                  <div *ngIf="this.showCommentSectionReply[node.id]">-->
+<!--                                    <br>-->
+<!--                                    <form [formGroup]="this.replyForms.get(node.id)">-->
+<!--                                      <mat-form-field style="width: 100%">-->
+<!--                                        <mat-label>Reply</mat-label>-->
+<!--                                        <input matInput   formControlName="replyComment">-->
+<!--                                      </mat-form-field>-->
+<!--                                    </form>-->
+<!--                                    <button mat-button (click)="submitReply(node.id, i)">Reply</button>-->
+<!--                                  </div>-->
+
+<!--                                </mat-card>-->
+<!--                                &lt;!&ndash;              </mat-card>&ndash;&gt;-->
+<!--                              </div>-->
+<!--                            </mat-tree-node>-->
+<!--                            &lt;!&ndash; This is the tree node template for expandable nodes &ndash;&gt;-->
+<!--                            <mat-nested-tree-node matTreeNodePadding matTreeNodePaddingIndent="2" *matTreeNodeDef="let node; when: hasChild">-->
+<!--                              <div>-->
+<!--                                <mat-card style="width: 99% !important;background-color: rgba(255,255,255,0.05);">-->
+<!--                                  <mat-card-header>-->
+<!--                                    <div mat-card-avatar class="comment-header-image"></div>-->
+<!--                                    <mat-card-title style="font-size: medium">{{node.commenter.name}}</mat-card-title>-->
+<!--                                    &lt;!&ndash;    <mat-card-subtitle>{{this.course.instructor.name}}</mat-card-subtitle>&ndash;&gt;-->
+<!--                                    <mat-card-subtitle>-->
+<!--                                      <div style="width: 100%;justify-content: right">{{node.commenter.user_role | titlecase}}</div>-->
+<!--                                    </mat-card-subtitle>-->
+<!--                                  </mat-card-header>-->
+<!--                                  <span> {{node.comment}}</span>-->
+<!--                                  <br>-->
+<!--                                  <button mat-flat-button color="accent"  style="margin-top: 10px;font-size: small" (click)="viewcommentReply(node.id)">-->
+<!--                                    <span *ngIf="!showCommentSectionReply[node.id]">Reply</span>-->
+<!--                                    <span *ngIf="showCommentSectionReply[node.id]">Cancel replying</span>-->
+<!--                                  </button>-->
+<!--                                  <button mat-flat-button color="primary" matTreeNodeToggle style="margin-top: 10px; margin-left:5px;font-size: small"-->
+<!--                                          [attr.aria-label]="'toggle ' + node.comment">-->
+<!--                 <span *ngIf="!(treeControls[i].isExpanded(node))"> View {{node.replyComments.length}}-->
+<!--                   <span *ngIf="node.replyComments.length === 1">Reply</span>-->
+<!--                   <span *ngIf="node.replyComments.length !== 1">Replies</span>-->
+<!--                 </span>-->
+<!--                                    <span *ngIf="treeControls[i].isExpanded(node)">Hide-->
+<!--                   <span *ngIf="node.replyComments.length === 1">Reply</span>-->
+<!--                   <span *ngIf="node.replyComments.length !== 1">Replies</span>-->
+<!--                  </span>-->
+<!--                                  </button>-->
+<!--                                  <div *ngIf="this.showCommentSectionReply[node.id]">-->
+<!--                                    <br>-->
+<!--                                    <form [formGroup]="this.replyForms.get(node.id)">-->
+<!--                                      <mat-form-field style="width: 100%">-->
+<!--                                        <mat-label>Reply</mat-label>-->
+<!--                                        <input matInput   formControlName="replyComment">-->
+<!--                                      </mat-form-field>-->
+<!--                                    </form>-->
+<!--                                    <button mat-button (click)="submitReply(node.id, i)">Reply</button>-->
+<!--                                  </div>-->
+<!--                                  <br>-->
+<!--                                  <div [class.example-tree-invisible]="!treeControls[i].isExpanded(node)">-->
+<!--                                    <ng-container matTreeNodeOutlet></ng-container>-->
+<!--                                  </div>-->
+<!--                                </mat-card>-->
+
+<!--                              </div>-->
+<!--                            </mat-nested-tree-node>-->
+<!--                          </mat-tree>-->
+
+<!--                        </div>-->
+<!--                      </div>-->
+
+                    </mat-card>
+                    <br>
+                  </div>
+                </div>
+              </mat-card>
+              <br>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

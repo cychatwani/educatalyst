@@ -1,0 +1,50 @@
+<mat-toolbar   [ngClass]="{'bgcolor1':(this.colorNum + 1) % 6 == 1, 'bgcolor2':(this.colorNum+1) % 6 == 2, 'bgcolor3':(this.colorNum+1) % 6 == 3, 'bgcolor4':(this.colorNum+1) % 6 == 4,'bgcolor5':(this.colorNum+1) % 6 == 5,'bgcolor6':(this.colorNum+1) % 6 == 0}">
+  <button (click)="drawer.toggle()" mat-button style="margin-left: -25px;"><mat-icon>menu</mat-icon></button>
+  <span class="" style="margin-left: -35px;">
+    <img src="../../../assets/img/logo.png" style="height: 70px">
+  </span>
+  <span style="margin-left: 22%; font-size: x-large">
+      {{this.course.course_name}}
+  </span>
+<!--  {{this.course.}}-->
+</mat-toolbar>
+<mat-sidenav-container style="border:none; background-color: transparent;width: 100%" class="example-container">
+  <mat-sidenav   [ngClass]="{'sideNav1':(this.colorNum + 1) % 6 == 1, 'sideNav2':(this.colorNum+1) % 6 == 2, 'sideNav3':(this.colorNum+1) % 6 == 3, 'sideNav4':(this.colorNum+1) % 6 == 4,'sideNav5':(this.colorNum+1) % 6 == 5,'sideNav6':(this.colorNum+1) % 6 == 0}" mode="side" #drawer>
+    <span *ngIf="this.userInfo.imageUrl !== ''">
+      <img style="margin-left: 34%" src="{{this.userInfo.imageUrl}}"  class="avatar">
+    </span>
+    <span *ngIf="this.userInfo.imageUrl === '' ">
+      <img style="margin-left: 34%" src="../../../assets/img/avatar.png"  class="avatar">
+    </span>
+    <div style="text-align: center">
+      {{this.userInfo.name}}
+    </div>
+    <mat-divider></mat-divider><br>
+    <a [routerLink]="['Announcements',this.key,this.colorNum]" style="font-size: large;text-decoration: none" ><mat-icon>nature</mat-icon>Announcements</a><br><br>
+    <a [routerLink]="['assignment',this.key,this.colorNum]" style="font-size: large;text-decoration: none" ><mat-icon>nature</mat-icon>Assignments</a><br><br>
+    <a [routerLink]="['feedBack',this.key,this.colorNum]" style="font-size: large;text-decoration: none" ><mat-icon>nature</mat-icon>Lecture Feedback</a><br><br>
+    <a [routerLink]="['DoubtQNA',this.key,this.colorNum]" style="font-size: large;text-decoration: none" ><mat-icon>nature</mat-icon>Doubt Questions</a><br><br>
+    <mat-divider></mat-divider>
+    <button mat-button>
+      <mat-icon>people</mat-icon>
+      <span>View/edit Profile</span>
+    </button>
+    <button mat-button>
+      <mat-icon>settings</mat-icon>
+      <span>settings</span>
+    </button>
+    <br>
+    <button mat-button (click)="onRequestLogOut()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
+    </button>
+    <button mat-button (click)="onRequestDashboard()">
+      <mat-icon>keyboard_backspace</mat-icon>
+      <span>Student Dashboard</span>
+    </button>
+  </mat-sidenav>
+  <mat-sidenav-content style="color:black">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

@@ -2,6 +2,7 @@ package tech.educatalyst.api.Models;
 
 import javax.persistence.*;
 
+@Entity
 public class StudentFeedBack {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

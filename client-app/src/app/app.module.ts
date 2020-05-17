@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import '../../node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js';
+import {ChartsModule} from 'ng2-charts';
 import {
   MatButtonModule,
   MatSnackBarModule,
@@ -8,7 +10,15 @@ import {
   MatIconModule,
   MatMenuModule,
   MatSlideToggleModule,
-  MatToolbarModule, MatExpansionModule, MatStepperModule, MatTableModule, MatTreeModule, MatSidenavModule, MatDividerModule
+  MatToolbarModule,
+  MatExpansionModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTreeModule,
+  MatSidenavModule,
+  MatDividerModule,
+  MatTabsModule,
+  MatDatepickerModule, MatNativeDateModule
 } from '@angular/material';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule, MatCheckboxModule, MatChipsModule, MatSelectModule, MatRadioModule} from '@angular/material';
@@ -46,7 +56,18 @@ import { AskQuestionComponent } from './student/doubt-question-page/ask-question
 // tslint:disable-next-line:max-line-length
 import { StudentCoursePageHeaderSmallComponent } from './student/student-course-page-header-small/student-course-page-header-small.component';
 import {MatFileUploadModule} from 'mat-file-upload';
-
+import { DisplayQuestionComponent } from './student/doubt-question-page/display-question/display-question.component';
+import { LectureFeedbackComponent } from './student/lecture-feedback/lecture-feedback.component';
+import { AssignmentsComponent } from './student/assignments/assignments.component';
+import {CountdownModule} from 'ngx-countdown';
+import {FacultyCoursePageHeaderComponent} from './faculty/course-page-header/student-course-page-header-small.component';
+import { FacultyAccouncementDisplayComponent } from './faculty/faculty-accouncement-display/faculty-accouncement-display.component';
+import {FacultyAssignmentsComponent} from './faculty/FacultyAssignments/faculty-assignments.component';
+import { FacultyLectureFeedbackComponent } from './faculty/facculty-lec-feedback/faculty-lecture-feedback.component';
+import {DecimalPipe} from '@angular/common';
+import { FacultyDoubtQnaComponent } from './faculty/faculty-doubt-qna/faculty-doubt-qna.component';
+// import {fileUp}
+// import { StarRatingModule } from 'angular-star-rating';
 
 
 
@@ -64,8 +85,21 @@ const AppRouts: Routes = [
       {path: 'Announcements/:key/:color', component: StudentAnnouncementsComponent,  canActivate : [AuthGuard], data: {roles: ['student']}},
       {path: 'DoubtQNA/:key/:color', component: DoubtQuestionPageComponent,  canActivate : [AuthGuard], data: {roles: ['student']}},
       {path: 'classmates/:key/:color', component: StudentClassmatesComponent,  canActivate : [AuthGuard], data: {roles: ['student']}},
+      {path: 'feedBack/:key/:color', component: LectureFeedbackComponent,  canActivate : [AuthGuard], data: {roles: ['student']}},
+      {path: 'assignment/:key/:color', component: AssignmentsComponent,  canActivate : [AuthGuard], data: {roles: ['student']}},
     ]
   },
+  {path: 'faculty/course', component: FacultyCoursePageHeaderComponent,  canActivate : [AuthGuard], data: {roles: ['faculty']},
+    // /classmates/:key/:color
+    children: [
+      // tslint:disable-next-line:max-line-length
+      {path: 'Announcements/:key/:color', component: FacultyAccouncementDisplayComponent,  canActivate : [AuthGuard], data: {roles: ['faculty']}},
+      {path: 'DoubtQNA/:key/:color', component: FacultyDoubtQnaComponent,  canActivate : [AuthGuard], data: {roles: ['faculty']}},
+      {path: 'classmates/:key/:color', component: StudentClassmatesComponent,  canActivate : [AuthGuard], data: {roles: ['faculty']}},
+      {path: 'feedBack/:key/:color', component: FacultyLectureFeedbackComponent,  canActivate : [AuthGuard], data: {roles: ['faculty']}},
+      {path: 'assignment/:key/:color', component: FacultyAssignmentsComponent,  canActivate : [AuthGuard], data: {roles: ['faculty']}},
+    ]
+  }
   // tslint:disable-next-line:max-line-length
   // // tslint:disable-next-line:max-line-length
   // tslint:disable-next-line:max-line-length
@@ -89,6 +123,7 @@ const AppRouts: Routes = [
     SignInFormComponent,
     StudentHomeComponent,
     FacultyHomeComponent,
+    FacultyCoursePageHeaderComponent,
     StudentDashboardCourseCardListComponent,
     NewCourseEnrollmentPannelComponent,
     NewCourseCreatePannelComponent,
@@ -102,8 +137,16 @@ const AppRouts: Routes = [
     CourseAboutPageComponent,
     AskQuestionComponent,
     StudentCoursePageHeaderSmallComponent,
+    DisplayQuestionComponent,
+    LectureFeedbackComponent,
+    AssignmentsComponent,
+    FacultyAccouncementDisplayComponent,
+    FacultyAssignmentsComponent,
+    FacultyLectureFeedbackComponent,
+    FacultyDoubtQnaComponent,
   ],
   imports: [
+    ChartsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
     HttpClientModule,
@@ -120,6 +163,7 @@ const AppRouts: Routes = [
     MatRadioModule,
     ReactiveFormsModule,
     RouterModule.forRoot(AppRouts),
+    // StarRatingModule.forRoot(),
     MatFormFieldModule,
     MatCardModule,
     MatSlideToggleModule,
@@ -130,8 +174,15 @@ const AppRouts: Routes = [
     MatSidenavModule,
     MatFileUploadModule,
     MatDividerModule,
+    MatTabsModule,
+    CountdownModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [StudentDashboardCourseCardListComponent],
+  providers: [StudentDashboardCourseCardListComponent,
+    MatDatepickerModule,
+    DecimalPipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

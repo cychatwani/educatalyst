@@ -3,14 +3,11 @@ package tech.educatalyst.api.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tech.educatalyst.api.JpaRepositories.CourseRepository;
-import tech.educatalyst.api.JpaRepositories.StudentQuestionRepository;
-import tech.educatalyst.api.JpaRepositories.UserRepository;
+import tech.educatalyst.api.JpaRepositories.*;
+import tech.educatalyst.api.Models.*;
 import tech.educatalyst.api.Models.ApiModels.ApiResponse;
-import tech.educatalyst.api.Models.Course;
+import tech.educatalyst.api.Models.DataTransferObjects.AnswerDto;
 import tech.educatalyst.api.Models.DataTransferObjects.StudentQuestionDTO;
-import tech.educatalyst.api.Models.StudentQuestion;
-import tech.educatalyst.api.Models.User;
 
 import java.security.Principal;
 import java.util.Date;
@@ -22,9 +19,26 @@ public class StudentQuestionControllers {
     CourseRepository courseRepository;
     @Autowired
     UserRepository userRepository;
-
+    @Autowired
+    StudentQuestionAnswersRepository studentQuestionAnswersRepository;
+    @Autowired
+    AnswerCommentRepository answerCommentRepository;
     @Autowired
     StudentQuestionRepository studentQuestionRepository;
+
+    @CrossOrigin
+    @PostMapping("faculty/answerQuestion")
+    public ApiResponse<String> answer(Principal principal, @RequestBody AnswerDto answerRequest){
+      StudentQuestion question =   studentQuestionRepository.findById(answerRequest.getQuestionId());
+      StudentQuestionAnswers answer = new StudentQuestionAnswers();
+      answer.setStudentQuestion(question);
+      answer.setAnswer(answerRequest.getAnswer());
+      answer.setDateAnsweredOn(new Date());
+      answer.setImage_url(answerRequest.getImage_url());
+      studentQuestionAnswersRepository.save(answer);
+      return new ApiResponse<>(200, "Success", "Done");
+    }
+
     @CrossOrigin
     @PostMapping("student/askQuestion")
     public ApiResponse<String> makeQuestion(Principal principal, @RequestBody StudentQuestionDTO questionRequest){
@@ -39,7 +53,39 @@ public class StudentQuestionControllers {
         studentQuestionRepository.save(studentQuestion);
         return new   ApiResponse<>(200,"Success","Question asked");
     }
+    private void fixcomments(List<AnswerComment> comments){
+        for(AnswerComment comment: comments){
+            comment.setStudentQuestionAnswers(null);
+            User commenter = comment.getCommenter();
+            commenter.setCourses_enrolled_in(null);
 
+            comment.setParentComment(null);
+            System.out.println(comment.getComment());
+            fixcomments(comment.getReplyComments());
+        }
+    }
+    @CrossOrigin
+    @GetMapping("AnswerComments")
+    public ApiResponse<List<AnswerComment>> getAllCourseAnnouncementsComments(@RequestParam long id){
+        StudentQuestionAnswers answer = this.studentQuestionAnswersRepository.findById(id);
+        List<AnswerComment> comments = answerCommentRepository.findAllByStudentQuestionAnswers(answer);
+        fixcomments(comments);
+        return new ApiResponse(200,"Success",comments);
+    }
+
+
+    @CrossOrigin
+    @GetMapping("QuestionAnswers")
+    public ApiResponse<StudentQuestionAnswers> getAnswers(@RequestParam Long id){
+        StudentQuestion question = studentQuestionRepository.findById(id).get();
+        List<StudentQuestionAnswers> answers = studentQuestionAnswersRepository.findAllByStudentQuestion(question);
+        for(StudentQuestionAnswers questionAnswer : answers){
+            questionAnswer.setStudentQuestion(null);
+
+        }
+        return  new ApiResponse<>(200,"Success",answers);
+    }
+    @CrossOrigin
     @GetMapping("courseQuestions")
     public ApiResponse<List<StudentQuestion>> getAllCourseQuestions(Principal principal, @RequestParam String key){
         Course course = courseRepository.findByCourseKey(key);
@@ -54,4 +100,5 @@ public class StudentQuestionControllers {
         }
         return new ApiResponse<>(200,"Success",studentQuestions);
     }
+
 }

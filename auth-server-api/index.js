@@ -30,6 +30,23 @@ const QuestionImageseStorage = multer.diskStorage({
     callBackFunction(null, filename);
   }
 })
+const AssignmentFilesStorage = multer.diskStorage({
+  destination: (request, file, callBackFunction)=>{
+    callBackFunction(null,"public/uploads/AssignmentFiles/"); 
+  },
+  filename: (request, file, callBackFunction)=> {
+    const originalnameSplittedArray  = file.originalname.split('.');
+    const extention = originalnameSplittedArray[originalnameSplittedArray.length - 1];
+    FileNameCounter++;
+    const name = base62.encode(FileNameCounter);
+    const filename = name+'.'+extention; 
+    redisConnetionClient.set('EducatalystFileNameCounter',FileNameCounter+1, function(){
+      console.log("EducatalystFileNameCounter -> Updated")
+    });
+    callBackFunction(null, filename);
+  }
+});
+
 //mimetype: 'image/png',
 const ImageOnlyFileFilter = (req, file, callBackFunction)=>{
   if(file.mimetype === 'image/png' || file.mimetype === 'image/jpeg'|| file.mimetype === 'image/svg+xml')
@@ -37,6 +54,10 @@ const ImageOnlyFileFilter = (req, file, callBackFunction)=>{
   else 
     callBackFunction(null, false)
 };
+
+const multerUploadAssignmentFiles = multer({ 
+  storage: AssignmentFilesStorage,
+ })
 
 
 const multerUploadQuestionImages = multer({ 
@@ -53,6 +74,15 @@ databaseHandel.connect();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.post('/api/upload/AssignmentFiles', 
+multerUploadAssignmentFiles.single('file'), (req, res)=>{
+  console.log(req.file); 
+  const location = 'http://localhost:3000/AssignmentFiles/'+req.file.filename; 
+  res.json({
+    path : location
+  })
+})
+
 app.post('/api/upload/questionImages', 
 multerUploadQuestionImages.single('image'), (req, res)=>{
   // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -61,7 +91,7 @@ multerUploadQuestionImages.single('image'), (req, res)=>{
   res.json({
     path : location
   })
-} )
+})
 let FileNameCounter = 0; 
 
 redisConnetionClient.get('EducatalystFileNameCounter' ,(err, value) => {

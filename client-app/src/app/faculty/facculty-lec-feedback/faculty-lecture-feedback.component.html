@@ -1,0 +1,104 @@
+<div class="container-fluid">
+  <br><br>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-7">
+     <mat-card style="min-height: 650px;">
+      <mat-card-title style="text-align:  center">
+        Lecture Feedback of students
+      </mat-card-title>
+        <mat-tab-group>
+          <mat-tab label="Overall data">
+            <br>
+            <div *ngIf="isDataAvailable" style="display: block;">
+              <h3>Total-Ratings-Received: {{this.NumberOfRatings}}</h3>
+              <h3>Overall-Average-Rating: {{this.Average | number: '1.2-2'}}</h3>
+              <canvas baseChart
+                      [datasets]="lineChartData"
+                      [labels]="lineChartLabels"
+                      [options]="lineChartOptions"
+                      [colors]="lineChartColors"
+                      [legend]="lineChartLegend"
+                      [chartType]="lineChartType"
+                    ></canvas>
+            </div>
+          </mat-tab>
+          <mat-tab label="Lecture wise data">
+            <div *ngFor="let lec of lectureList">
+              <mat-card [ngClass]="{'bgcolor1':(this.colorNum + 1) % 6 == 1, 'bgcolor2':(this.colorNum+1) % 6 == 2, 'bgcolor3':(this.colorNum+1) % 6 == 3, 'bgcolor4':(this.colorNum+1) % 6 == 4,'bgcolor5':(this.colorNum+1) % 6 == 5,'bgcolor6':(this.colorNum+1) % 6 == 0}">
+                <mat-card-header>
+                  <img mat-card-avatar  src="../../../assets/img/lec.png">
+                  <mat-card-title>
+                    {{lec.lectureTitle}}
+                  </mat-card-title>
+                  <mat-card-subtitle>
+                    {{lec.lectureDate | date:"fullDate"}}
+                  </mat-card-subtitle>
+                  <mat-card-subtitle>
+                    {{lec.startTime}} to {{lec.endTime}}
+                  </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  {{lec.lectureDescription}}
+                </mat-card-content><br>
+                <div style="color: slategray" *ngIf="!lec.hasfeedBack">
+                  This lecture has no feedBacks yet. Remind your students to give feedback after the lecture.
+                </div>
+                <div *ngIf="lec.hasfeedBack" style="max-height: 543px; overflow: auto">
+                  <button mat-button (click)="toggleData(lec.id)">
+                    <span *ngIf="!lec.viewFeedBack"> View </span>
+                    <span *ngIf="lec.viewFeedBack"> Hide </span>
+                    <span>Feedback  Data</span>
+                  </button>
+                  <button mat-button (click)="toggleComments(lec.id)">
+                    <span *ngIf="!lec.viewComments"> View </span>
+                    <span *ngIf="lec.viewComments"> Hide </span>
+                    <span>Comments</span>
+                  </button>
+                  <div *ngIf="lec.viewFeedBack && !(lec.viewComments)">
+                    <div style="display: block">
+                      <h4>Total number of ratings: {{lec.totalRatings}}</h4>
+                      <h4>Average Rating: {{lec.averageRatings |  number : '1.2-2'}}</h4>
+                      <canvas baseChart
+                              [colors]="chartColors"
+                              [datasets]="this.cDatas.get(lec.id)"
+                              [labels]="barChartLabels"
+                              [options]="barChartOptions"
+                              [plugins]="barChartPlugins"
+                              [legend]="barChartLegend"
+                              [chartType]="barChartType">
+                      </canvas>
+                    </div>
+                  </div>
+                  <div *ngIf="lec.viewComments && !(lec.viewFeedBack)">
+                    <div *ngFor="let feedback of lec.feedbacks">
+                      <div *ngIf="feedback.comment !== null">
+                        <mat-card style="background-color: transparent">
+                          <mat-card-header>
+                            <img mat-card-avatar src="../../../assets/img/comment.png">
+                            <mat-card-title>Student</mat-card-title>
+                            <mat-card-subtitle>
+                              Rating: {{feedback.ratings}}/5
+                            </mat-card-subtitle>
+                          </mat-card-header>
+                          <mat-card-content>
+                            {{feedback.comment}}
+                          </mat-card-content>
+                        </mat-card>
+                        <br>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-card><br>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+
+     </mat-card>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+<br>
+<br>

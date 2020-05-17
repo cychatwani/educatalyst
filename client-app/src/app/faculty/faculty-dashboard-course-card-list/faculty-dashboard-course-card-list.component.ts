@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CourseService} from '../../../Services/Course-service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-faculty-dashboard-course-card-list',
@@ -9,7 +10,7 @@ import {CourseService} from '../../../Services/Course-service';
 export class FacultyDashboardCourseCardListComponent implements OnInit {
   courses: any;
 
-  constructor(private courseService: CourseService) { }
+  constructor(private courseService: CourseService, private router: Router) { }
 
   ngOnInit() {
     console.log('I am Initialised');
@@ -21,4 +22,7 @@ export class FacultyDashboardCourseCardListComponent implements OnInit {
     console.log(this.courses);
   }
 
+  onRequestOfCourseHome(courseKey: any, i: number) {
+    this.router.navigate(['faculty/course/Announcements', courseKey, i]);
+  }
 }

@@ -1,11 +1,11 @@
 .faq .faq-item {
   margin: 20px 0;
   padding: 20px 0;
-  border-bottom: 1px solid #192A56;
+  border-bottom: 1px solid whitesmoke;
 }
 
 .faq .faq-item i {
-  color: #9bbbd7;
+  color: ghostwhite;
   font-size: 20px;
   float: left;
   line-height: 0;
